@@ -53,6 +53,7 @@ export default function (props) {
         if (response.data.message === "Login successful!") {
           localStorage.setItem("name", response.data.name);
           localStorage.setItem("token", response.data.token);
+          localStorage.setItem("isLoggedIn", true);
 
           navigateHome();
         } else {

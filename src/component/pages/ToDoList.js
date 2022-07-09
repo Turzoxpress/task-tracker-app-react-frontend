@@ -1,7 +1,8 @@
 import React from "react";
 import ToDo from "./ToDo";
 
-const ToDoList = ({ toDoList, handleToggle, handleDelete }) => {
+const ToDoList = ({ toDoList, handleToggle, handleDelete, isLoggedIn }) => {
+  // console.log("isLoggedIn value ToDoList : " + isLoggedIn);
   return (
     <div className="custom_div_center">
       {toDoList.map((todo) => {
@@ -10,6 +11,7 @@ const ToDoList = ({ toDoList, handleToggle, handleDelete }) => {
             todo={todo}
             handleToggle={handleToggle}
             handleDelete={handleDelete}
+            isLoggedIn={isLoggedIn}
           />
         );
       })}

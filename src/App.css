@@ -37,3 +37,29 @@ label {
   font-weight: 600;
   color: rgb(34, 34, 34);
 }
+
+.todo {
+  cursor: pointer;
+}
+.strike {
+  text-decoration: line-through;
+}
+
+.center_div {
+  display: flex;
+}
+
+.close_button {
+  width: 30px;
+  height: 30px;
+  /* margin-top: 5px; */
+  margin-left: 20px;
+  background-color: whitesmoke;
+  color: crimson;
+}
+
+.custom_div_center {
+  text-align: center;
+  width: 50%;
+  margin: 0 auto;
+}
