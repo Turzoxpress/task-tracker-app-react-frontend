@@ -67,6 +67,15 @@ const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn }) => {
 
             <h3 className="card-title card_title">{todo.task_name}</h3>
             <p className="card-text card_title">{todo.task_description}</p>
+
+            <div className="card-footer d-flex text-muted">
+              <p>Created By: {todo.created_by}</p>
+              <p>Modified By: {todo.modified_by}</p>
+              <p>Created On: {todo.created_at}</p>
+              <p>Status: {todo.status}</p>
+              <p>Completed Time: {todo.created_at}</p>
+            </div>
+
             <div className="right_button_align">
               <a href="#" className="btn btn-danger">
                 Delete
