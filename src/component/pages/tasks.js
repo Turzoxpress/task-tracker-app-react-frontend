@@ -231,43 +231,54 @@ export default function () {
         </button>
       </div>
 
-      <div>
-        <button
-          type="button"
-          className="btn btn-warning m-2"
-          onClick={handleWorkingButtonClick}
-        >
-          Working
-        </button>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm">
+            <button
+              type="button"
+              className="btn btn-warning m-1 btn-block"
+              onClick={handleWorkingButtonClick}
+            >
+              Working
+            </button>
+          </div>
+          <div class="col-sm">
+            <button
+              type="button"
+              className="btn btn-primary m-1 btn-block"
+              onClick={handleToDoButtonClick}
+            >
+              ToDo
+            </button>
+          </div>
+          <div class="col-sm">
+            <button
+              type="button"
+              className="btn btn-success m-1 btn-block"
+              onClick={handleCompletedButtonClick}
+            >
+              Completed
+            </button>
+          </div>
 
-        <button
-          type="button"
-          className="btn btn-secondary m-2"
-          onClick={handleToDoButtonClick}
-        >
-          ToDo
-        </button>
-
-        <button
-          type="button"
-          className="btn btn-success m-2"
-          onClick={handleCompletedButtonClick}
-        >
-          Completed
-        </button>
-
-        {isLoggedIn ? (
-          <button
-            type="button"
-            className="btn btn-danger m-2"
-            onClick={handleDeletedButtonClick}
-          >
-            Deleted
-          </button>
-        ) : (
-          <div></div>
-        )}
+          <div class="col-sm">
+            <div>
+              {isLoggedIn ? (
+                <button
+                  type="button"
+                  className="btn btn-danger m-1 btn-block"
+                  onClick={handleDeletedButtonClick}
+                >
+                  Deleted
+                </button>
+              ) : (
+                <div></div>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
+
       <div>
         <ToDoList
           toDoList={tasks}

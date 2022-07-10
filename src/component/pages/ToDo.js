@@ -43,10 +43,43 @@ const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn }) => {
   //   //alert(document.getElementById("statusChanger").value);
   // };
 
+  let today = new Date(todo.created_at);
+  let modifiedDate = today.toLocaleString("en-US");
+  console.log(modifiedDate);
+
+  let modifiedBy = "NA";
+  if (todo.created_by) {
+    modifiedBy = todo.created_by;
+  }
+
+  let workingStatus = "NA";
+  let statusTextClass = "text-secondary";
+  if (todo.status) {
+    if (todo.status === "created") {
+      workingStatus = "ToDo";
+      statusTextClass = "text-primary";
+    } else if (todo.status === "working") {
+      workingStatus = "In Progress";
+      statusTextClass = "text-warning";
+    } else if (todo.status === "completed") {
+      workingStatus = "Completed";
+      statusTextClass = "text-success";
+    } else if (todo.status === "deleted") {
+      workingStatus = "Deleted";
+      statusTextClass = "text-danger";
+    }
+  }
+
+  console.log("status : " + workingStatus);
+
   return (
-    <div>
-      <div>
-        <div className="card m-5">
+    <div className="row">
+      <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div className="card m-3 shadow bg-white">
+          <p className="card_id_p">
+            <i>{"ID: " + todo._id}</i>
+          </p>
+
           <div className="card-body">
             <div className="right_button_align">
               <div className="drop_down_div m-2">
@@ -65,19 +98,47 @@ const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn }) => {
               </div>
             </div>
 
-            <h3 className="card-title card_title">{todo.task_name}</h3>
-            <p className="card-text card_title">{todo.task_description}</p>
+            <h3 className="card-title card_title p-2">
+              <b>{todo.task_name}</b>
+            </h3>
+            <p className="card-text card_title p-2 card_description_p">
+              {todo.task_description}
+            </p>
 
-            <div className="card-footer d-flex text-muted">
-              <p>Created By: {todo.created_by}</p>
-              <p>Modified By: {todo.modified_by}</p>
-              <p>Created On: {todo.created_at}</p>
-              <p>Status: {todo.status}</p>
-              <p>Completed Time: {todo.created_at}</p>
+            <div class="footer_div_custom">
+              <div class="row">
+                <div class="col-sm">
+                  <p className="footer_div_p footer_text_size  p-2 rounded">
+                    <bold className="footer_div_title_text">Created On: </bold>
+                    {modifiedDate}
+                  </p>
+                </div>
+
+                <div class="col-sm">
+                  <p className="footer_div_p footer_text_size  p-2 rounded">
+                    <bold className="footer_div_title_text">Created By: </bold>
+                    {todo.created_by}
+                  </p>
+                </div>
+
+                <div class="col-sm">
+                  <p className="footer_div_p footer_text_size  p-2 rounded">
+                    <bold className="footer_div_title_text">Modified By: </bold>
+                    {modifiedBy}
+                  </p>
+                </div>
+
+                <div class="col-sm">
+                  <p className="footer_div_p footer_text_size  p-2 rounded">
+                    <bold className="footer_div_title_text">Status: </bold>
+                    <b className={statusTextClass}> {workingStatus}</b>
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div className="right_button_align">
-              <a href="#" className="btn btn-danger">
+              <a href="#" className="btn-sm btn-danger">
                 Delete
               </a>
             </div>

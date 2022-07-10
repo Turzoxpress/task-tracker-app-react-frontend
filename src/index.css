@@ -23,3 +23,50 @@ code {
 .drop_down_div {
   display: inline-block;
 }
+
+.footer_div {
+  display: flex;
+  width: 95%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 10px;
+}
+
+.footer_div_custom {
+  max-width: 95%;
+}
+
+.footer_div_p {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-family: arial;
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: #f7f6f6;
+  opacity: 0.7;
+}
+
+.card_body_div {
+  width: 95%;
+}
+
+.footer_text_size {
+  font-size: small;
+}
+
+.footer_div_title_text {
+  font-weight: 900;
+}
+
+.card_id_p {
+  opacity: 0.8;
+  font-family: arial;
+  font-size: smaller;
+  color: #696767;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+.card_description_p {
+  font-size: large;
+}

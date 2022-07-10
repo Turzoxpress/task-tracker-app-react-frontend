@@ -59,7 +59,11 @@ label {
 }
 
 .custom_div_center {
+  width: 94%;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  width: 50%;
-  margin: 0 auto;
+  margin-left: 3%;
+  margin-right: 3%;
 }
