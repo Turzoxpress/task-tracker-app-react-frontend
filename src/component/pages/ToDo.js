@@ -17,6 +17,8 @@ const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn }) => {
     let tempVar = option.toLowerCase();
     if (tempVar === "todo") {
       tempVar = "created";
+    } else if (tempVar === "in progress") {
+      tempVar = "working";
     }
 
     handleToggle(my_id + "_" + tempVar);
@@ -43,13 +45,26 @@ const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn }) => {
   //   //alert(document.getElementById("statusChanger").value);
   // };
 
-  let today = new Date(todo.created_at);
-  let modifiedDate = today.toLocaleString("en-US");
-  console.log(modifiedDate);
+  let created_at = "NA";
+  if (todo.created_at) {
+    let today = new Date(todo.created_at);
+    created_at = today.toLocaleString("en-US");
+  }
 
-  let modifiedBy = "NA";
+  let created_by = "NA";
   if (todo.created_by) {
-    modifiedBy = todo.created_by;
+    created_by = todo.created_by;
+  }
+
+  let modified_at = "NA";
+  if (todo.modified_at) {
+    let today = new Date(todo.modified_at);
+    modified_at = today.toLocaleString("en-US");
+  }
+
+  let modified_by = "NA";
+  if (todo.modified_by) {
+    modified_by = todo.modified_by;
   }
 
   let workingStatus = "NA";
@@ -81,22 +96,28 @@ const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn }) => {
           </p>
 
           <div className="card-body">
-            <div className="right_button_align">
-              <div className="drop_down_div m-2">
-                {/* <label for="input-select">Example Select</label> */}
-                <select
-                  className="form-control"
-                  id={my_id}
-                  options={options}
-                  value={defaultOption}
-                  onChange={handleClick}
-                >
-                  <option value={options[0]}>ToDo</option>
-                  <option value={options[1]}>Working</option>
-                  <option value={options[2]}>Completed</option>
-                </select>
+            {isLoggedIn ? (
+              <div>
+                <div className="right_button_align">
+                  <div className="drop_down_div m-2">
+                    {/* <label for="input-select">Example Select</label> */}
+                    <select
+                      className="form-control"
+                      id={my_id}
+                      options={options}
+                      value={defaultOption}
+                      onChange={handleClick}
+                    >
+                      <option value={options[0]}>ToDo</option>
+                      <option value={options[1]}>In Progress</option>
+                      <option value={options[2]}>Completed</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div></div>
+            )}
 
             <h3 className="card-title card_title p-2">
               <b>{todo.task_name}</b>
@@ -109,22 +130,29 @@ const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn }) => {
               <div class="row">
                 <div class="col-sm">
                   <p className="footer_div_p footer_text_size  p-2 rounded">
-                    <bold className="footer_div_title_text">Created On: </bold>
-                    {modifiedDate}
+                    <bold className="footer_div_title_text">Created: </bold>
+                    {created_at}
                   </p>
                 </div>
 
                 <div class="col-sm">
                   <p className="footer_div_p footer_text_size  p-2 rounded">
                     <bold className="footer_div_title_text">Created By: </bold>
-                    {todo.created_by}
+                    {created_by}
+                  </p>
+                </div>
+
+                <div class="col-sm">
+                  <p className="footer_div_p footer_text_size  p-2 rounded">
+                    <bold className="footer_div_title_text">Modified: </bold>
+                    {modified_at}
                   </p>
                 </div>
 
                 <div class="col-sm">
                   <p className="footer_div_p footer_text_size  p-2 rounded">
                     <bold className="footer_div_title_text">Modified By: </bold>
-                    {modifiedBy}
+                    {modified_by}
                   </p>
                 </div>
 
@@ -137,11 +165,19 @@ const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn }) => {
               </div>
             </div>
 
-            <div className="right_button_align">
-              <a href="#" className="btn-sm btn-danger">
-                Delete
-              </a>
-            </div>
+            {isLoggedIn && todo.status != "deleted" ? (
+              <div className="right_button_align">
+                <a
+                  id={todo._id}
+                  onClick={handleDeleteClick}
+                  className="btn btn-rounded btn-danger btn-sm"
+                >
+                  Delete
+                </a>
+              </div>
+            ) : (
+              <div></div>
+            )}
           </div>
         </div>
       </div>

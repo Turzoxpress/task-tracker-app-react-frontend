@@ -34,6 +34,7 @@ code {
 
 .footer_div_custom {
   max-width: 95%;
+  margin-top: 100px;
 }
 
 .footer_div_p {
@@ -69,4 +70,8 @@ code {
 
 .card_description_p {
   font-size: large;
+}
+
+.custom_hidden_div {
+  width: 0px;
 }
