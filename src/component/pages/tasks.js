@@ -20,6 +20,11 @@ export default function () {
     navigate("/login");
   };
 
+  const navigateAddTask = () => {
+    // 👇️ navigate to /
+    navigate("/add_task");
+  };
+
   const name = localStorage.getItem("name");
   const token = localStorage.getItem("token");
   let isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -253,6 +258,19 @@ export default function () {
           onClick={navigateLogin}
         >
           Login
+        </button>
+      </div>
+
+      <br></br>
+      <br></br>
+
+      <div>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={navigateAddTask}
+        >
+          Add Task
         </button>
       </div>
 

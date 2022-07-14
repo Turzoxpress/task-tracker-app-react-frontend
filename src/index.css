@@ -75,3 +75,24 @@ code {
 .custom_hidden_div {
   width: 0px;
 }
+
+.container_center {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container_center_item {
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.div_add_task {
+  width: 95%;
+
+  align-items: center;
+  justify-content: center;
+}
