@@ -5,6 +5,8 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import constants from "../utils/constants";
 import axios from "axios";
 
+import Navbar from "./NavBar";
+
 export default function (props) {
   const navigate = useNavigate();
 

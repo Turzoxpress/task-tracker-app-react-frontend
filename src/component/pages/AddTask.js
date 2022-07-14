@@ -1,4 +1,4 @@
-import React, { useState, Button } from "react";
+import React, { useState, Button, Fragment } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
@@ -6,6 +6,7 @@ import constants from "../utils/constants";
 import axios from "axios";
 
 import { confirmAlert } from "react-confirm-alert"; // Import
+import Navbar from "./NavBar";
 
 export default function (props) {
   const navigate = useNavigate();
@@ -94,14 +95,14 @@ export default function (props) {
   return (
     <div>
       <div>
-        <button type="button" onClick={navigateHome}>
-          Home
-        </button>
+        <Navbar />
       </div>
+
       <br></br>
       <br></br>
-      <div>
-        <div>
+
+      <div className="element-container">
+        <div className="element">
           <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div className="card">
               <h5 className="card-header container_center_item">

@@ -84,7 +84,7 @@ code {
 }
 
 .container_center_item {
-  width: 95%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -95,4 +95,28 @@ code {
 
   align-items: center;
   justify-content: center;
+}
+
+.container_right_item {
+  text-align: right;
+  width: 100%;
+}
+
+.custom_div_overflow {
+  overflow-y: "auto";
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.element-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0px auto;
+}
+.element {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
 }

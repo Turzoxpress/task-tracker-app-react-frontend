@@ -12,6 +12,8 @@ import ToDoList from "./ToDoList";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
+import Navbar from "./NavBar";
+
 export default function () {
   const navigate = useNavigate();
 
@@ -222,6 +224,13 @@ export default function () {
 
   return (
     <div>
+      <div>
+        <Navbar />
+      </div>
+
+      <br></br>
+      <br></br>
+
       {isLoggedIn ? (
         <div>
           <p>Welcome {name}</p>
