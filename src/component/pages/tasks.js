@@ -6,6 +6,7 @@ import constants from "../utils/constants";
 import axios from "axios";
 
 import data from "../assets/data.json";
+import data3 from "../assets/data3.json";
 
 import ToDoList from "./ToDoList";
 
@@ -15,6 +16,8 @@ import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import Navbar from "./NavBar";
 
 export default function () {
+  const [taskCounter, setTaskCounter] = useState(data3);
+
   const navigate = useNavigate();
 
   const navigateLogin = () => {
@@ -30,6 +33,7 @@ export default function () {
   const name = localStorage.getItem("name");
   const token = localStorage.getItem("token");
   let isLoggedIn = localStorage.getItem("isLoggedIn");
+  let role = localStorage.getItem("role");
 
   if (!isLoggedIn) {
     isLoggedIn = false;
@@ -69,6 +73,8 @@ export default function () {
           setTasks(response.data.data);
           // alert(tasks);
           console.log(tasks);
+
+          getTaskCount();
         } else {
           alert(response.data.message);
         }
@@ -77,6 +83,30 @@ export default function () {
         return error;
       });
   }, []);
+
+  const getTaskCount = () => {
+    console.log("Entered task count............");
+    axios({
+      method: "get",
+      url: constants.backend_server + constants.getTotalTaskCount,
+      headers: {},
+    })
+      .then(function (response) {
+        if (response.data.status === 200) {
+          console.log("task counter : " + response.data.data.total);
+
+          setTaskCounter(response.data.data);
+
+          console.log("task counter after : " + taskCounter.total);
+        } else {
+          //alert(response.data.message);
+          console.log(response.data.message);
+        }
+      })
+      .catch(function (error) {
+        return error;
+      });
+  };
 
   const handleToggle = (id) => {
     // alert(id);
@@ -231,58 +261,6 @@ export default function () {
       <br></br>
       <br></br>
 
-      {isLoggedIn ? (
-        <div>
-          <p>Welcome {name}</p>
-
-          <div>
-            <button
-              type="button"
-              className="btn btn-danger"
-              onClick={handleLogout}
-            >
-              Logout
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div></div>
-      )}
-      <br></br>
-
-      {/* <div>
-        <Dropdown
-          id="statusChanger"
-          options={options}
-          value={defaultOption}
-          onChange={handleStatusChanged}
-          placeholder="Select an option"
-        />
-      </div> */}
-
-      <div>
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={navigateLogin}
-        >
-          Login
-        </button>
-      </div>
-
-      <br></br>
-      <br></br>
-
-      <div>
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={navigateAddTask}
-        >
-          Add Task
-        </button>
-      </div>
-
       <div class="container">
         <div class="row">
           <div class="col-sm">
@@ -291,7 +269,7 @@ export default function () {
               className="btn btn-warning m-1 btn-block text-white"
               onClick={handleWorkingButtonClick}
             >
-              In Progress
+              In Progress <b>{" (" + taskCounter.working + ")"}</b>
             </button>
           </div>
           <div class="col-sm">
@@ -300,7 +278,7 @@ export default function () {
               className="btn btn-primary m-1 btn-block"
               onClick={handleToDoButtonClick}
             >
-              ToDo
+              ToDo <b>{" (" + taskCounter.created + ")"}</b>
             </button>
           </div>
           <div class="col-sm">
@@ -309,11 +287,11 @@ export default function () {
               className="btn btn-success m-1 btn-block"
               onClick={handleCompletedButtonClick}
             >
-              Completed
+              Completed <b>{" (" + taskCounter.completed + ")"}</b>
             </button>
           </div>
 
-          {isLoggedIn ? (
+          {isLoggedIn && role === "admin" ? (
             <div class="col-sm">
               <div>
                 <button
@@ -321,7 +299,7 @@ export default function () {
                   className="btn btn-danger m-1 btn-block"
                   onClick={handleDeletedButtonClick}
                 >
-                  Deleted
+                  Deleted <b>{" (" + taskCounter.deleted + ")"}</b>
                 </button>
               </div>
             </div>
@@ -337,6 +315,7 @@ export default function () {
           handleToggle={handleToggle}
           handleDelete={handleDelete}
           isLoggedIn={isLoggedIn}
+          role={role}
         />
       </div>
     </div>

@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -28,7 +28,13 @@ export default function Navbar() {
 
   const name = localStorage.getItem("name");
   let role = localStorage.getItem("role");
-  console.log("Role found in navbar : " + role);
+  let isLoggedIn = localStorage.getItem("isLoggedIn");
+
+  if (!isLoggedIn) {
+    isLoggedIn = false;
+  }
+
+  //console.log("Role found in navbar : " + role);
 
   //------------------
   let navigation = null;
@@ -37,17 +43,28 @@ export default function Navbar() {
       { name: "Home", href: "/", current: false },
       { name: "Tasks", href: "/tasks", current: false },
       { name: "Add Task", href: "/add_task", current: false },
-      { name: "Sign Up", href: "/login", current: false },
-      { name: "Sign In", href: "/login", current: false },
+      { name: "Register", href: "/register", current: false },
+      { name: "Log In", href: "/login", current: false },
     ];
   } else {
     navigation = [
       { name: "Home", href: "/", current: false },
       { name: "Tasks", href: "/tasks", current: false },
       // { name: "Add Task", href: "/add_task", current: false },
-      { name: "Sign Up", href: "/login", current: false },
-      { name: "Sign In", href: "/login", current: false },
+      { name: "Register", href: "/register", current: false },
+      { name: "Log In", href: "/login", current: false },
     ];
+  }
+
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  //-- set navigation button clicked based on path
+  for (let i = 0; i < navigation.length; i++) {
+    if (navigation[i].href === currentPath) {
+      navigation[i].current = true;
+      break;
+    }
   }
 
   //------------------------------------
@@ -111,30 +128,31 @@ export default function Navbar() {
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button> */}
 
-                <div>
-                  {/* Profile dropdown */}
-                  <Menu as="div" className="ml-3 relative">
-                    <div>
-                      <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                        <span className="sr-only">Open user menu</span>
-                        <img
-                          className="h-8 w-8 rounded-full"
-                          src={require("../assets/dummy_avatar.png")}
-                          alt=""
-                        />
-                      </Menu.Button>
-                    </div>
-                    <Transition
-                      as={Fragment}
-                      enter="transition ease-out duration-100"
-                      enterFrom="transform opacity-0 scale-95"
-                      enterTo="transform opacity-100 scale-100"
-                      leave="transition ease-in duration-75"
-                      leaveFrom="transform opacity-100 scale-100"
-                      leaveTo="transform opacity-0 scale-95"
-                    >
-                      <Menu.Items className="origin-top-right z-50 absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        {/* <Menu.Item>
+                {isLoggedIn ? (
+                  <div>
+                    {/* Profile dropdown */}
+                    <Menu as="div" className="ml-3 relative">
+                      <div>
+                        <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                          <span className="sr-only">Open user menu</span>
+                          <img
+                            className="h-8 w-8 rounded-full"
+                            src={require("../assets/dummy_avatar.png")}
+                            alt=""
+                          />
+                        </Menu.Button>
+                      </div>
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                      >
+                        <Menu.Items className="origin-top-right z-50 absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                          {/* <Menu.Item>
                           {({ active }) => (
                             <a
                               href="#"
@@ -161,54 +179,57 @@ export default function Navbar() {
                           )}
                         </Menu.Item> */}
 
-                        <Menu.Item>
-                          {({ active }) => (
-                            <p
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              {name + " ("} <b>{role}</b> {")"}
-                            </p>
-                          )}
-                        </Menu.Item>
-
-                        {role === "admin" ? (
                           <Menu.Item>
                             {({ active }) => (
-                              <a
-                                onClick={navigateManageUsers}
+                              <p
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
-                                Manage Users
+                                {name + " ("} <b>{role}</b> {")"}
+                              </p>
+                            )}
+                          </Menu.Item>
+
+                          {role === "admin" ? (
+                            <Menu.Item>
+                              {({ active }) => (
+                                <a
+                                  onClick={navigateManageUsers}
+                                  className={classNames(
+                                    active ? "bg-gray-100" : "",
+                                    "block px-4 py-2 text-sm text-gray-700"
+                                  )}
+                                >
+                                  Manage Users
+                                </a>
+                              )}
+                            </Menu.Item>
+                          ) : (
+                            <div></div>
+                          )}
+
+                          <Menu.Item>
+                            {({ active }) => (
+                              <a
+                                onClick={handleLogout}
+                                className={classNames(
+                                  active ? "bg-gray-100" : "",
+                                  "block px-4 py-2 text-sm text-gray-700"
+                                )}
+                              >
+                                Log Out
                               </a>
                             )}
                           </Menu.Item>
-                        ) : (
-                          <div></div>
-                        )}
-
-                        <Menu.Item>
-                          {({ active }) => (
-                            <a
-                              onClick={handleLogout}
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Log Out
-                            </a>
-                          )}
-                        </Menu.Item>
-                      </Menu.Items>
-                    </Transition>
-                  </Menu>
-                </div>
+                        </Menu.Items>
+                      </Transition>
+                    </Menu>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
               </div>
             </div>
           </div>

@@ -1,7 +1,13 @@
 import React from "react";
 import ToDo from "./ToDo";
 
-const ToDoList = ({ toDoList, handleToggle, handleDelete, isLoggedIn }) => {
+const ToDoList = ({
+  toDoList,
+  handleToggle,
+  handleDelete,
+  isLoggedIn,
+  role,
+}) => {
   // console.log("isLoggedIn value ToDoList : " + isLoggedIn);
   return (
     <div className="custom_div_center">
@@ -12,6 +18,7 @@ const ToDoList = ({ toDoList, handleToggle, handleDelete, isLoggedIn }) => {
             handleToggle={handleToggle}
             handleDelete={handleDelete}
             isLoggedIn={isLoggedIn}
+            role={role}
           />
         );
       })}

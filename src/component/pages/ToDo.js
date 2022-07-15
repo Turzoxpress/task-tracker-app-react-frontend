@@ -4,7 +4,7 @@ import CloseButton from "react-bootstrap/CloseButton";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
-const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn }) => {
+const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn, role }) => {
   // console.log("isLoggedIn value ToDo : " + isLoggedIn);
 
   const my_id = todo._id;
@@ -96,7 +96,7 @@ const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn }) => {
           </p>
 
           <div className="card-body">
-            {isLoggedIn ? (
+            {isLoggedIn && (role === "admin" || role === "employee") ? (
               <div>
                 <div className="right_button_align">
                   <div className="drop_down_div m-2">
@@ -165,7 +165,7 @@ const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn }) => {
               </div>
             </div>
 
-            {isLoggedIn && todo.status != "deleted" ? (
+            {isLoggedIn && todo.status != "deleted" && role === "admin" ? (
               <div className="right_button_align">
                 <a
                   id={todo._id}
