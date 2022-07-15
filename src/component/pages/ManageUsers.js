@@ -174,7 +174,7 @@ export default function () {
             //alert(response.data.message);
             // window.location.reload(false);
             loadUserData();
-            //document.getElementById(id).style.visibility = "hidden";
+            //document.getElementById(id).style.visibility = "hiddenn";
           } else {
             alert(response.data.message);
           }
