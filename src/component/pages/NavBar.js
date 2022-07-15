@@ -4,14 +4,6 @@ import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-const navigation = [
-  { name: "Home", href: "/", current: false },
-  { name: "Tasks", href: "/tasks", current: false },
-  { name: "Add Task", href: "/add_task", current: false },
-  { name: "Sign Up", href: "/login", current: false },
-  { name: "Sign In", href: "/login", current: false },
-];
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -24,10 +16,41 @@ export default function Navbar() {
     navigate("/");
   };
 
+  const navigateManageUsers = () => {
+    // 👇️ navigate to /
+    navigate("/manage_users");
+  };
+
   const handleLogout = (id) => {
     localStorage.clear();
     navigateHome();
   };
+
+  const name = localStorage.getItem("name");
+  let role = localStorage.getItem("role");
+  console.log("Role found in navbar : " + role);
+
+  //------------------
+  let navigation = null;
+  if (role === "admin" || role === "employee") {
+    navigation = [
+      { name: "Home", href: "/", current: false },
+      { name: "Tasks", href: "/tasks", current: false },
+      { name: "Add Task", href: "/add_task", current: false },
+      { name: "Sign Up", href: "/login", current: false },
+      { name: "Sign In", href: "/login", current: false },
+    ];
+  } else {
+    navigation = [
+      { name: "Home", href: "/", current: false },
+      { name: "Tasks", href: "/tasks", current: false },
+      // { name: "Add Task", href: "/add_task", current: false },
+      { name: "Sign Up", href: "/login", current: false },
+      { name: "Sign In", href: "/login", current: false },
+    ];
+  }
+
+  //------------------------------------
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -137,6 +160,38 @@ export default function Navbar() {
                             </a>
                           )}
                         </Menu.Item> */}
+
+                        <Menu.Item>
+                          {({ active }) => (
+                            <p
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              {name + " ("} <b>{role}</b> {")"}
+                            </p>
+                          )}
+                        </Menu.Item>
+
+                        {role === "admin" ? (
+                          <Menu.Item>
+                            {({ active }) => (
+                              <a
+                                onClick={navigateManageUsers}
+                                className={classNames(
+                                  active ? "bg-gray-100" : "",
+                                  "block px-4 py-2 text-sm text-gray-700"
+                                )}
+                              >
+                                Manage Users
+                              </a>
+                            )}
+                          </Menu.Item>
+                        ) : (
+                          <div></div>
+                        )}
+
                         <Menu.Item>
                           {({ active }) => (
                             <a

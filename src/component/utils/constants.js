@@ -9,6 +9,9 @@ module.exports = {
   changeTask: "/todo/change-task",
   deleteTask: "/todo/delete-task",
 
+  getAllUsers: "/user/get-users",
+  updateUserRole: "/user/update-user-role",
+
   authorized_admin_emails: [
     "turzoxpress@gmail.com",
     "testsdfsdf324324sdf565675343534@gmail.com",

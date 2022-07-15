@@ -56,6 +56,7 @@ export default function (props) {
           localStorage.setItem("name", response.data.name);
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("isLoggedIn", true);
+          localStorage.setItem("role", response.data.role);
 
           navigateHome();
         } else {

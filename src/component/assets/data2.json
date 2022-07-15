@@ -1,0 +1,13 @@
+[
+  {
+    "_id": "62d10eff86dbc0f7fa8a8c29",
+    "name": "Mahbubur Rahman Turzo",
+    "email": "turzoxpress@gmail.com",
+    "password": "$2a$10$DCcM1dRnguTP7cXqL/VvE.UxPqYVgCDKThJqc4PDJ4ptG4aI5bqZ6",
+    "role": "admin",
+    "created_at": "2022-07-15T06:53:51.000Z",
+    "modified_at": "2022-07-15T07:00:56.000Z",
+    "__v": 0,
+    "last_login": "2022-07-15 12:56:54"
+  }
+]
