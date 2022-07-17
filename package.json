@@ -2,6 +2,7 @@
   "name": "task_tracker",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://brlbd.com/apps/task/",
   "dependencies": {
     "@headlessui/react": "^1.6.6",
     "@heroicons/react": "^1.0.6",
@@ -19,7 +20,8 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-spinners": "^0.13.3",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "react-dropdown": "^1.10.0"
   },
   "scripts": {
     "start": "set PORT=4000 && react-scripts start",

@@ -1,5 +1,7 @@
 module.exports = {
-  backend_server: "https://www.eventby.xyz/backend/apps/task/api",
+  backend_server: "https://www.eventby.xyz/backend/apps/task",
+
+  frontend_server: "https://brlbd.com/apps/task/",
 
   registerNewUser: "/user/register-user",
   login: "/user/login-user",

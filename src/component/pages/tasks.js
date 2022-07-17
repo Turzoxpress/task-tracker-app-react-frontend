@@ -305,6 +305,10 @@ export default function () {
           <br></br>
           <br></br>
 
+          {/* <div>
+            <button onClick={navigateLogin}>Login</button>
+          </div> */}
+
           <div class="container">
             <div class="row">
               <div class="col-sm">

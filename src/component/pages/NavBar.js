@@ -3,6 +3,7 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import constants from "../utils/constants";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -14,6 +15,26 @@ export default function Navbar() {
   const navigateHome = () => {
     // 👇️ navigate to /
     navigate("/");
+  };
+
+  const navigateTask = () => {
+    // 👇️ navigate to /
+    navigate("/tasks");
+  };
+
+  const navigateAddTask = () => {
+    // 👇️ navigate to /
+    navigate("/add_task");
+  };
+
+  const navigateRegister = () => {
+    // 👇️ navigate to /
+    navigate("/register");
+  };
+
+  const navigateLogin = () => {
+    // 👇️ navigate to /
+    navigate("/login");
   };
 
   const navigateManageUsers = () => {
@@ -40,32 +61,63 @@ export default function Navbar() {
   let navigation = null;
   if (role === "admin" || role === "employee") {
     navigation = [
-      { name: "Home", href: "/", current: false },
-      { name: "Tasks", href: "/tasks", current: false },
-      { name: "Add Task", href: "/add_task", current: false },
-      { name: "Register", href: "/register", current: false },
-      { name: "Log In", href: "/login", current: false },
+      { name: "Home", href: constants.frontend_server + "/", current: false },
+      {
+        name: "Tasks",
+        href: constants.frontend_server + "/tasks",
+        onclick: { navigateLogin },
+        current: false,
+      },
+      {
+        name: "Add Task",
+        href: constants.frontend_server + "/add_task",
+        current: false,
+      },
+      {
+        name: "Register",
+        href: constants.frontend_server + "/register",
+        current: false,
+      },
+      {
+        name: "Log In",
+        href: constants.frontend_server + "/login",
+        current: false,
+      },
     ];
   } else {
     navigation = [
-      { name: "Home", href: "/", current: false },
-      { name: "Tasks", href: "/tasks", current: false },
+      { name: "Home", href: constants.frontend_server + "/", current: false },
+      {
+        name: "Tasks",
+        href: constants.frontend_server + "/tasks",
+        onclick: { navigateLogin },
+        current: false,
+      },
       // { name: "Add Task", href: "/add_task", current: false },
-      { name: "Register", href: "/register", current: false },
-      { name: "Log In", href: "/login", current: false },
+      {
+        name: "Register",
+        href: constants.frontend_server + "/register",
+        current: false,
+      },
+      {
+        name: "Log In",
+        href: constants.frontend_server + "/login",
+        current: false,
+      },
     ];
   }
 
-  const location = useLocation();
-  const currentPath = location.pathname;
+  // const location = useLocation();
+  // const currentPath = location.pathname;
+  // console.log("cuurent path : " + currentPath);
 
-  //-- set navigation button clicked based on path
-  for (let i = 0; i < navigation.length; i++) {
-    if (navigation[i].href === currentPath) {
-      navigation[i].current = true;
-      break;
-    }
-  }
+  // //-- set navigation button clicked based on path
+  // for (let i = 0; i < navigation.length; i++) {
+  //   if (navigation[i].href === currentPath) {
+  //     navigation[i].current = true;
+  //     break;
+  //   }
+  // }
 
   //------------------------------------
 
@@ -101,7 +153,51 @@ export default function Navbar() {
                 </div> */}
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
+                    <button
+                      type="button"
+                      onClick={navigateHome}
+                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Home
+                    </button>
+
+                    {/* <button
+                      type="button"
+                      onClick={navigateTask}
+                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Tasks
+                    </button> */}
+
+                    {role === "admin" || role === "employee" ? (
+                      <button
+                        type="button"
+                        onClick={navigateAddTask}
+                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                      >
+                        Add Task
+                      </button>
+                    ) : (
+                      <div></div>
+                    )}
+
+                    <button
+                      type="button"
+                      onClick={navigateRegister}
+                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Registration
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={navigateLogin}
+                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Login
+                    </button>
+
+                    {/* {navigation.map((item) => (
                       <a
                         key={item.name}
                         href={item.href}
@@ -115,7 +211,9 @@ export default function Navbar() {
                       >
                         {item.name}
                       </a>
-                    ))}
+
+                     
+                    ))} */}
                   </div>
                 </div>
               </div>
