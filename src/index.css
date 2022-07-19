@@ -1,0 +1,139 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.card_title {
+  text-align: left;
+}
+
+.right_button_align {
+  text-align: right;
+}
+
+.left_button_align {
+  text-align: left;
+}
+
+.drop_down_div {
+  display: inline-block;
+}
+
+.footer_div {
+  display: flex;
+  width: 95%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 10px;
+}
+
+.footer_div_custom {
+  max-width: 95%;
+  margin-top: 50px;
+}
+
+.footer_div_p {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-family: arial;
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: #f7f6f6;
+  opacity: 0.7;
+}
+
+.card_body_div {
+  width: 95%;
+}
+
+.footer_text_size {
+  font-size: small;
+}
+
+.footer_div_title_text {
+  font-weight: 900;
+}
+
+.card_id_p {
+  opacity: 0.8;
+  font-family: arial;
+  font-size: smaller;
+  color: #696767;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+.card_description_p {
+  font-size: large;
+}
+
+.custom_hidden_div {
+  width: 0px;
+}
+
+.container_center {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container_center_item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.div_add_task {
+  width: 95%;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.container_right_item {
+  text-align: right;
+  width: 100%;
+}
+
+.custom_div_overflow {
+  overflow-y: "auto";
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.element-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0px auto;
+}
+.element {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+}
+
+.login_div {
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  display: flex;
+}
+
+.attachment_div {
+  display: flex;
+  align-items: flex-start;
+  align-content: flex-start;
+}
