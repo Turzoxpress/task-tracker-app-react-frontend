@@ -58,54 +58,6 @@ export default function Navbar() {
   //console.log("Role found in navbar : " + role);
 
   //------------------
-  let navigation = null;
-  if (role === "admin" || role === "employee") {
-    navigation = [
-      { name: "Home", href: constants.frontend_server + "/", current: false },
-      {
-        name: "Tasks",
-        href: constants.frontend_server + "/tasks",
-        onclick: { navigateLogin },
-        current: false,
-      },
-      {
-        name: "Add Task",
-        href: constants.frontend_server + "/add_task",
-        current: false,
-      },
-      {
-        name: "Register",
-        href: constants.frontend_server + "/register",
-        current: false,
-      },
-      {
-        name: "Log In",
-        href: constants.frontend_server + "/login",
-        current: false,
-      },
-    ];
-  } else {
-    navigation = [
-      { name: "Home", href: constants.frontend_server + "/", current: false },
-      {
-        name: "Tasks",
-        href: constants.frontend_server + "/tasks",
-        onclick: { navigateLogin },
-        current: false,
-      },
-      // { name: "Add Task", href: "/add_task", current: false },
-      {
-        name: "Register",
-        href: constants.frontend_server + "/register",
-        current: false,
-      },
-      {
-        name: "Log In",
-        href: constants.frontend_server + "/login",
-        current: false,
-      },
-    ];
-  }
 
   // const location = useLocation();
   // const currentPath = location.pathname;
@@ -334,7 +286,7 @@ export default function Navbar() {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {navigation.map((item) => (
+              {/* {navigation.map((item) => (
                 <Disclosure.Button
                   key={item.name}
                   as="a"
@@ -349,7 +301,7 @@ export default function Navbar() {
                 >
                   {item.name}
                 </Disclosure.Button>
-              ))}
+              ))} */}
             </div>
           </Disclosure.Panel>
         </>

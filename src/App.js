@@ -8,8 +8,9 @@ import ManageUsers from "./component/pages/ManageUsers";
 import SignUp from "./component/pages/SignUp";
 
 function App() {
+  //basename="/apps/task/"
   return (
-    <BrowserRouter basename="/apps/task/">
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Tasks />} />
         <Route path="/login" element={<Login />} />

@@ -1,4 +1,4 @@
-import React, { useState, Button, Fragment } from "react";
+import React, { useState, Button, Fragment, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
@@ -18,6 +18,17 @@ const override: CSSProperties = {
 };
 
 export default function (props) {
+  const [selectedFile, setSelectedFile] = useState();
+  const [tempFileName, settempFileName] = useState("Select attachment")
+
+  const [isFilePicked, setIsFilePicked] = useState(false);
+
+  const changeHandler = (event) => {
+    setSelectedFile(event.target.files[0]);
+    settempFileName(event.target.files[0].name)
+    // setIsSelected(true);
+  };
+
   let [loading, setLoading] = useState(false);
   let [color, setColor] = useState("#07b428");
 
@@ -56,17 +67,30 @@ export default function (props) {
       let name = localStorage.getItem("name");
       const token = localStorage.getItem("token");
 
+      // const fileCount = document.getElementById("customFile").files.length;
+      // alert(fileCount);
+
+      let formData = new FormData();
+      formData.append("task_name", titleTxt);
+      formData.append("task_description", descriptionTxt);
+      formData.append("created_by", name);
+      //formData.append("file", document.getElementById("customFile").files[0]);
+      formData.append("file", selectedFile);
+
+      //console.log(document.getElementById("customFile").files[0]);
+      // return;
+
       setLoading(true);
 
       axios({
         method: "post",
         url: constants.backend_server + constants.addTask,
-        headers: { Authorization: `Bearer ${token}` },
-        data: {
-          task_name: titleTxt,
-          task_description: descriptionTxt,
-          created_by: name,
+
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "multipart/form-data"
         },
+        data: formData,
       })
         .then(function (response) {
           console.log(response.data);
@@ -88,7 +112,7 @@ export default function (props) {
             if (response.data.status === 200) {
               //window.location.reload(false);
               alert(response.data.message);
-              window.location.reload(false);
+              //  window.location.reload(false);
               //document.getElementById(id).style.visibility = "hidden";
             } else {
               alert(response.data.message);
@@ -138,7 +162,7 @@ export default function (props) {
                     <form>
                       <div className="form-group">
                         <label for="inputText3" className="col-form-label">
-                          Title
+                          Title*
                         </label>
                         <input
                           id="title"
@@ -149,13 +173,25 @@ export default function (props) {
 
                       <div className="form-group">
                         <label for="exampleFormControlTextarea1">
-                          Description
+                          Description*
                         </label>
                         <textarea
                           className="form-control"
                           id="description"
                           rows="5"
                         ></textarea>
+                      </div>
+
+                      <div class="custom-file mb-3">
+                        <input
+                          type="file"
+                          class="custom-file-input"
+                          id="customFile"
+                          onChange={changeHandler}
+                        />
+                        <label class="custom-file-label" for="customFile">
+                          {tempFileName}
+                        </label>
                       </div>
 
                       <div className="d-grid gap-2 mt-3">
