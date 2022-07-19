@@ -137,3 +137,18 @@ code {
   align-items: flex-start;
   align-content: flex-start;
 }
+
+.custom_filter_div {
+  display: flex;
+  align-items: center;
+}
+
+.custom_filter_div_title {
+  margin-top: 0px;
+}
+
+.custom_no_data_div {
+  margin-top: 50px;
+  text-align: center;
+  width: 100%;
+}

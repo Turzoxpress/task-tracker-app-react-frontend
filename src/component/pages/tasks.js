@@ -58,6 +58,11 @@ export default function () {
     taskStatus = "working";
   }
 
+  let sortValue = localStorage.getItem("sortValue");
+  if (!sortValue) {
+    sortValue = "modified_at";
+  }
+
   console.log("Tasks status : " + taskStatus);
 
   const loadTaskData = () => {
@@ -69,7 +74,9 @@ export default function () {
         constants.backend_server +
         constants.getAllTasksStatus +
         "/" +
-        taskStatus,
+        taskStatus +
+        "/" +
+        sortValue,
       headers: {},
     })
       .then(function (response) {
@@ -180,7 +187,8 @@ export default function () {
             // alert(response.data.message);
             // window.location.reload(false);
             //document.getElementById(id).style.visibility = "hidden";
-            loadTaskData();
+            // loadTaskData();
+            removeItemFromArray(parts[0]);
           } else {
             alert(response.data.message);
           }
@@ -233,8 +241,9 @@ export default function () {
                     //window.location.reload(false);
                     // alert(response.data.message);
                     // window.location.reload(false);
-                    loadTaskData();
+                    // loadTaskData();
                     //document.getElementById(id).style.visibility = "hidden";
+                    removeItemFromArray(id);
                   } else {
                     alert(response.data.message);
                   }
@@ -262,6 +271,18 @@ export default function () {
     //-----------------------------------------
   };
 
+  const removeItemFromArray = (id) => {
+    setTasks((current) =>
+      current.filter((tasks) => {
+        return tasks._id !== id;
+      })
+    );
+
+    getTaskCount();
+  };
+
+  //------------------------
+
   const handleLogout = (id) => {
     localStorage.clear();
     window.location.reload(false);
@@ -287,6 +308,54 @@ export default function () {
     window.location.reload(false);
   };
 
+  //------------------- Task Status Dropdown
+  //enum: ["created", "working", "completed", "deleted"],
+  const options_status = ["created", "working", "completed", "deleted"];
+  let defaultOptionStatus = options_status[2];
+  let status_selector = "status_selector";
+  const handleStatusOptionClick = () => {
+    let select = document.getElementById(status_selector);
+    let option = select.options[select.selectedIndex].value;
+
+    localStorage.setItem("taskStatus", option);
+
+    window.location.reload(false);
+  };
+
+  for (let i = 0; i < options_status.length; i++) {
+    if (localStorage.getItem("taskStatus") === options_status[i]) {
+      defaultOptionStatus = options_status[i];
+      break;
+    }
+  }
+
+  //----------------------------------------------------------------
+
+  //------------------- Task Status Dropdown
+  //: Date,: Date,
+
+  const options_sort = ["created_at", "modified_at"];
+  let defaultSort = options_status[1];
+  let sort_selector = "sort_selector";
+  const handlesortOptionClick = () => {
+    let select = document.getElementById(sort_selector);
+    let option = select.options[select.selectedIndex].value;
+
+    localStorage.setItem("sortValue", option);
+
+    window.location.reload(false);
+    // alert(option);
+  };
+
+  for (let i = 0; i < options_sort.length; i++) {
+    if (localStorage.getItem("sortValue") === options_sort[i]) {
+      defaultSort = options_sort[i];
+      break;
+    }
+  }
+
+  //----------------------------------------------------------------
+
   return (
     <div className="sweet-loading">
       {loading ? (
@@ -310,6 +379,67 @@ export default function () {
           </div> */}
 
           <div class="container">
+            <div class="row">
+              <div class="col-sm custom_filter_div">
+                <div className="custom_filter_div_title">
+                  <strong>Task Status</strong>
+                </div>
+
+                <div className="drop_down_div m-2">
+                  {/* <label for="input-select">Example Select</label> */}
+
+                  <select
+                    id={status_selector}
+                    className="form-control"
+                    options={options_status}
+                    value={defaultOptionStatus}
+                    onChange={handleStatusOptionClick}
+                  >
+                    <option value={options_status[0]}>
+                      ToDo{" (" + taskCounter.created + ")"}
+                    </option>
+                    <option value={options_status[1]}>
+                      In Progress{" (" + taskCounter.working + ")"}
+                    </option>
+                    <option value={options_status[2]}>
+                      Completed{" (" + taskCounter.completed + ")"}
+                    </option>
+
+                    {isLoggedIn && role === "admin" ? (
+                      <option value={options_status[3]}>
+                        Deleted{" (" + taskCounter.deleted + ")"}
+                      </option>
+                    ) : (
+                      <div></div>
+                    )}
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-sm custom_filter_div">
+                <div className="custom_filter_div_title">
+                  <strong>Order By</strong>
+                </div>
+
+                <div className="drop_down_div m-2">
+                  {/* <label for="input-select">Example Select</label> */}
+
+                  <select
+                    id={sort_selector}
+                    className="form-control"
+                    options={options_sort}
+                    value={defaultSort}
+                    onChange={handlesortOptionClick}
+                  >
+                    <option value={options_sort[0]}>Created</option>
+                    <option value={options_sort[1]}>Modified</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* <div class="container">
             <div class="row">
               <div class="col-sm">
                 <button
@@ -355,17 +485,25 @@ export default function () {
                 <div></div>
               )}
             </div>
-          </div>
+          </div> */}
 
-          <div>
-            <ToDoList
-              toDoList={tasks}
-              handleToggle={handleToggle}
-              handleDelete={handleDelete}
-              isLoggedIn={isLoggedIn}
-              role={role}
-            />
-          </div>
+          {tasks.length > 0 ? (
+            <div>
+              <ToDoList
+                toDoList={tasks}
+                handleToggle={handleToggle}
+                handleDelete={handleDelete}
+                isLoggedIn={isLoggedIn}
+                role={role}
+              />
+            </div>
+          ) : (
+            <div className="custom_no_data_div">
+              <p className="text-secondary">
+                No Data available for this filter!
+              </p>
+            </div>
+          )}
         </div>
       )}
     </div>

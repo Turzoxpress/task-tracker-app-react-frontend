@@ -188,12 +188,12 @@ const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn, role }) => {
                   </p>
                 </div>
 
-                <div class="col-sm">
+                {/* <div class="col-sm">
                   <p className="footer_div_p footer_text_size  p-2 rounded">
                     <bold className="footer_div_title_text">Attachment: </bold>
                     <b className={statusTextClass}> {workingStatus}</b>
                   </p>
-                </div>
+                </div> */}
               </div>
             </div>
 

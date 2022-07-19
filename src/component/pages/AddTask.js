@@ -26,6 +26,18 @@ export default function (props) {
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
     settempFileName(event.target.files[0].name);
+
+    var _size = Math.floor(event.target.files[0].size / 1024 / 1024);
+    //console.log("File size : " + _size);
+
+    if (_size > 20) {
+      alert("Please upload a pdf/image/doc/video file smaller than 20 MB");
+
+      setSelectedFile(null);
+      settempFileName("Select attachment");
+
+      return false;
+    }
     // setIsSelected(true);
   };
 
@@ -193,6 +205,7 @@ export default function (props) {
                           class="custom-file-input"
                           id="customFile"
                           onChange={changeHandler}
+                          accept="image/*,video/*,application/pdf,application/vnd.ms-excel"
                         />
                         <label class="custom-file-label" for="customFile">
                           {tempFileName}
