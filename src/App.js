@@ -10,7 +10,7 @@ import SignUp from "./component/pages/SignUp";
 function App() {
   //basename="/apps/task/"
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/apps/task/">
       <Routes>
         <Route path="/" element={<Tasks />} />
         <Route path="/login" element={<Login />} />

@@ -132,7 +132,7 @@ const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn, role }) => {
                 <strong>
                   {" "}
                   Attachment :{" "}
-                  {todo.filePath != "NA" ? (
+                  {todo.filePath != "NA" && todo.filePath  ? (
                     <a
                       href={
                         constants.backend_server +

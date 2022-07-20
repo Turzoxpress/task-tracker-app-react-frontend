@@ -104,7 +104,7 @@ export default function (props) {
         url: constants.backend_server + constants.addTask,
 
         headers: {
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
         data: formData,

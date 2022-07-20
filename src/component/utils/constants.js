@@ -1,6 +1,6 @@
 module.exports = {
-  //backend_server: "https://www.eventby.xyz/backend/apps/task",
-  backend_server: "http://192.168.31.254",
+  backend_server: "https://www.eventby.xyz/backend/apps/task",
+  //backend_server: "http://192.168.31.254",
 
   frontend_server: "https://brlbd.com/apps/task/",
 
